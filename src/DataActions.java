@@ -2,14 +2,65 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.ICSVWriter;
 import com.opencsv.exceptions.CsvException;
+import com.opencsv.exceptions.CsvValidationException;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+/*
+Реализовать сохранение данных в csv файл; Реализовать загрузку данных из csv файла. Файл читается целиком.
+Структура csv файла:
+Строка заголовок с набором столбцов
+Набор строк с целочисленными значениями
+Разделитель между столбцами - символ точка с запятой (;)
+(Пример см. на скриншоте)
+Для хранения данных использовать класс вида:
+public class AppData {
+   private String[] header;
+   private int[][] data;
+   // ...
+}
+Если выполняется save(AppData data), то старые данные в файле полностью перезаписываются.
+ */
+class MainClass {
+    public static final String PATH = new File("data.csv").getAbsolutePath();
+    public static void main(String[] args) throws IOException, CsvValidationException {
+        DataActions actions = new DataActions();
+        AppData appData = new AppData();
+        actions.save(appData, false);
+        actions.reader();
+    }
+}
+class AppData {
+    private String[] header;
+    private int[][] data;
+
+    public AppData() {
+    }
+
+    public String[] getHeader() {
+        String[] header = new String[3];
+        for (int i = 1; i <= 3; i++) {
+            header[i-1 ] = "Value".concat(String.valueOf(i));
+        }
+        return header;
+    }
+
+    public int[][] getData() {
+
+        int[][] data = {
+
+                {
+                        1, 5, 98},
+                {
+                        54, 67, 2
+                }
+        };
+        return data;
+    }
+}
 
 class DataActions {
 
