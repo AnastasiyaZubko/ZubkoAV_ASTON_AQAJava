@@ -26,6 +26,7 @@ public class AppData {
  */
 class MainClass {
     public static final String PATH = new File("data.csv").getAbsolutePath();
+
     public static void main(String[] args) throws IOException, CsvValidationException {
         DataActions actions = new DataActions();
         AppData appData = new AppData();
@@ -33,6 +34,7 @@ class MainClass {
         actions.reader();
     }
 }
+
 class AppData {
     private String[] header;
     private int[][] data;
@@ -43,7 +45,7 @@ class AppData {
     public String[] getHeader() {
         String[] header = new String[3];
         for (int i = 1; i <= 3; i++) {
-            header[i-1 ] = "Value".concat(String.valueOf(i));
+            header[i - 1] = "Value".concat(String.valueOf(i));
         }
         return header;
     }
