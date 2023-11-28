@@ -2,7 +2,6 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.ICSVWriter;
 import com.opencsv.exceptions.CsvException;
-import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class AppData {
 class MainClass {
     public static final String PATH = new File("data.csv").getAbsolutePath();
 
-    public static void main(String[] args) throws IOException, CsvValidationException {
+    public static void main(String[] args) throws IOException {
         DataActions actions = new DataActions();
         AppData appData = new AppData();
         actions.save(appData, false);
@@ -81,7 +80,7 @@ class DataActions {
     public void save(AppData appData, Boolean reWrite) {
         CSVWriter writer = null;
         try {
-            writer = new CSVWriter(new FileWriter(MainClass.PATH), ';', ICSVWriter.NO_QUOTE_CHARACTER, ICSVWriter.DEFAULT_ESCAPE_CHARACTER, ICSVWriter.DEFAULT_LINE_END);
+            writer = new CSVWriter(new FileWriter(MainClass.PATH,reWrite), ';', ICSVWriter.NO_QUOTE_CHARACTER, ICSVWriter.DEFAULT_ESCAPE_CHARACTER, ICSVWriter.DEFAULT_LINE_END);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,7 +104,7 @@ class DataActions {
     public void csvWriterSpecialSeparators(String[] dataList, int rawNum, char separator, String path, Boolean reWrite) {
         CSVWriter writer = null;
         try {
-            writer = new CSVWriter(new FileWriter(path, reWrite));
+            writer = new CSVWriter(new FileWriter(MainClass.PATH, reWrite));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,7 +120,7 @@ class DataActions {
     public void csvWriterSpecialSeparators(List<String[]> dataList, int rawNum, char separator, String path, Boolean reWrite) {
         CSVWriter writer = null;
         try {
-            writer = new CSVWriter(new FileWriter(path, reWrite));
+            writer = new CSVWriter(new FileWriter(MainClass.PATH, reWrite));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -137,7 +136,7 @@ class DataActions {
     public void reader() {
         CSVReader reader = null;
         try {
-            reader = new CSVReader(new FileReader(MainClass.PATH));
+            reader = new com.opencsv.CSVReader(new FileReader(MainClass.PATH),';', ICSVWriter.NO_QUOTE_CHARACTER, ICSVWriter.DEFAULT_ESCAPE_CHARACTER, ICSVWriter.DEFAULT_LINE_END);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
